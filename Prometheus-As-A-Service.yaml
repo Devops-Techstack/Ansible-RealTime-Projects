@@ -1,0 +1,21 @@
+---
+ - name: copy software
+   hosts: all
+   tasks:
+    - name: copy soft
+      copy:
+       src: /home/vagrant/prometheus-2.41.0.linux-amd64.tar.gz
+       dest: /usr/local/bin
+    - name: unarchive module
+      unarchive:
+        src: /usr/local/bin/prometheus-2.41.0.linux-amd64.tar.gz
+        dest: /usr/local/bin/
+        remote_src: yes
+    - name: template module
+      template:
+       src: /home/vagrant/prometheus.service.j2
+       dest: /etc/systemd/system/prometheus.service
+    - name: start prometheus service
+      service:
+       name: prometheus.service
+       state: started
