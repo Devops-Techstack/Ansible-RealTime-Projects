@@ -1,0 +1,14 @@
+---
+ - name: install multiple softwares
+   hosts: all
+   tasks:
+    - name: install softwares multiple
+      yum:
+       name: "{{ item }}"
+       state: latest
+      when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "7")
+      loop:
+       - git
+       - docker
+       - python3
+       - java
