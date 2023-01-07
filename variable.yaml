@@ -1,0 +1,10 @@
+---
+ - name: example for variables
+   hosts: all
+   vars:
+     - name: testansible123
+   tasks:
+     - name: create user
+       user:
+        name: "{{ name }}"
+        state: present
