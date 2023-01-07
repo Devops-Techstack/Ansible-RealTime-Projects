@@ -1,0 +1,10 @@
+---
+ - name: example for variables
+   hosts: all
+   vars_files:
+     - varfiles
+   tasks:
+     - name: create user
+       user:
+        name: "{{ name }}"
+        state: present
