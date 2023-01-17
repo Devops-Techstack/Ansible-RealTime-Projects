@@ -1,0 +1,51 @@
+Installation commmand mysql Centos Machine:
+
+ rpm -Uvh https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm
+yum --enablerepo=mysql80-community install mysql-community-server
+ sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+yum --enablerepo=mysql80-community install mysql-community-server
+ yum install mysql
+yum install mysql-server
+yum -y install mysql-community-server
+ service mysqld  status
+ service mysqld  start
+service mysqld  status
+
+
+Change mysql passwqord
+  grep "A temporary password" /var/log/mysqld.log
+   16   mysql_secure_installation
+
+
+Database and table create:
+mysql -u root -p
+show databases;
+create database kritika;
+use kritika;
+create table tblEmployee1(Employee_first_name varchar(500) NOT null,Employee_last_name varchar(500) NOT null);
+INSERT INTO tblEmployee1 (employee_first_name, employee_last_name) values ("Nisarg","Upadhyay");
+
+Aws cli install and configure
+curl “https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip” -o "awscliv2.zip"
+ yum install unzip
+   24  unzip awscliv2.zip
+   25  ./aws/install
+   26  aws configure
+
+Ansible install
+   36  yum install epel-release
+   37  yum install ansible
+
+vi main.yaml:
+
+---
+ - name: this is my first playbook
+   hosts: localhost
+   tasks:
+     - name: Take Mysql backup
+       shell: mysqldump -u root --password="yourpassword"  kritika  tblEmployee1 > /tmp/dump3.sql
+     - name: Push Mysql backup to s3 bucket
+       shell: aws s3 cp  /tmp/dump3.sql s3://mysql-backup-909
+       
+  ansible-playbook main.yaml
+ 
