@@ -1,3 +1,7 @@
+- name: Check if node exporter exist
+  ansible.builtin.stat:
+    path: "{{ node_exporter_bin }}"
+  Register: node_exporter_is_present  
 - name: Creating alertmanager user group
   group: name="{{groupId}}"
   become: true
