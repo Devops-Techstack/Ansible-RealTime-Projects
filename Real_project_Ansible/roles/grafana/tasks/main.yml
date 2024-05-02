@@ -1,3 +1,11 @@
+- name: Download Grafana GPG key
+  ansible.builtin.get_url:
+    url: "https://packages.grafana.com/gpg.key"
+    dest: "/tmp/grafana.gpg"
+
+- name: Import GPG key
+  ansible.builtin.shell: "rpm --import /tmp/grafana.gpg"
+
 - name: Install grafana
   yum:
     name: https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-{{ version }}-1.x86_64.rpm
