@@ -1,7 +1,21 @@
-- name: Install grafana
+- name: Add Grafana repository
+  yum_repository:
+    name: grafana
+    description: Grafana Repository
+    baseurl: https://packages.grafana.com/oss/rpm
+    gpgcheck: yes
+    gpgkey: https://packages.grafana.com/gpg.key
+    enabled: yes
+
+- name: Import Grafana GPG key
+  rpm_key:
+    state: present
+    key: https://packages.grafana.com/gpg.key
+
+- name: Install Grafana package
   yum:
-    name: https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-{{ version }}-1.x86_64.rpm
-    state: latest
+    name: grafana
+    state: present
 
 - name: "Grafana configuration file copy"
   template:
@@ -20,3 +34,4 @@
     url: http://127.0.0.1:3000
     method: GET
     status_code: 200
+
