@@ -1,5 +1,4 @@
 ---
----
  - name: install multiple softwares
    hosts: all
    tasks:
